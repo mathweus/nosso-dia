@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Nosso Amor</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #ffe6e6, #ffccff);
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .container {
+      position: relative;
+      z-index: 10;
+      background: #fff0f5cc;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(255, 105, 180, 0.3);
+      text-align: center;
+      max-width: 500px;
+      margin: 10vh auto;
+    }
+
+    h1 {
+      font-size: 2.2em;
+      color: #c71585;
+      margin-bottom: 20px;
+    }
+
+    .counter {
+      font-size: 1.8em;
+      color: #d63384;
+      margin-top: 10px;
+    }
+
+    .message {
+      margin-top: 25px;
+      font-size: 1.5em;
+      color: #ff1493;
+      font-weight: bold;
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff69b4;
+      font-size: 24px;
+      animation: floatUp linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    #play-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1em;
+      background: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>💖 O amor nasceu em 09/11/2024 💖</h1>
+    <div class="counter" id="counter">Carregando...</div>
+    <div class="message" id="message"></div>
+    <button id="play-btn">🎵 Tocar "Future Days" 🎵</button>
+    <audio id="love-audio" src="https://dl.sndup.net/92m4/Future%20Days%20-%20Pearl%20Jam.mp3"></audio>
+  </div>
+
+  <!-- Corações flutuantes -->
+  <script>
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.textContent = '💗';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 10000);
+    }
+
+    setInterval(createHeart, 500);
+
+    // Função que retorna a data atual ajustada para o fuso horário de Brasília (UTC−3)
+    function getBrasiliaDate() {
+      const now = new Date();
+      const utcTime = now.getTime() + (now.getTimezoneOffset() * 60000);
+      const brasiliaOffset = -3 * 60 * 60000;
+      return new Date(utcTime + brasiliaOffset);
+    }
+
+    const startDate = new Date(Date.UTC(2024, 10, 9)); // 09/11/2024 em UTC
+    startDate.setUTCHours(0, 0, 0, 0); // Zera a hora para UTC
+
+    function updateCounter() {
+      const now = getBrasiliaDate();
+      now.setHours(0, 0, 0, 0); // Zera a hora local
+
+      const diffTime = now.getTime() - startDate.getTime();
+      const days = Math.floor(diffTime / (1000 * 60 * 60 * 24) -1);
+
+      document.getElementById('counter').textContent = `Já se passaram ${days} dias de amor!`;
+
+      const isDayNine = now.getDate() === 9;
+      const monthsDiff = (now.getFullYear() - startDate.getUTCFullYear()) * 12 + (now.getMonth() - 10);
+
+      if (isDayNine && monthsDiff >= 0) {
+        document.getElementById('message').textContent = `🎉 FELIZ ${monthsDiff} MESES DE AMOR! ❤️`;
+      } else {
+        document.getElementById('message').textContent = '';
+      }
+    }
+
+    updateCounter();
+    setInterval(updateCounter, 1000);
+
+    // Botão para tocar música
+    const playBtn = document.getElementById('play-btn');
+    const audio = document.getElementById('love-audio');
+
+    playBtn.addEventListener('click', () => {
+      audio.play();
+      playBtn.disabled = true;
+      playBtn.textContent = '🎶 Tocando...';
+    });
+  </script>
+</body>
+</html>
