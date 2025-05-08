@@ -117,13 +117,13 @@
       const diffTime = now.getTime() - startDate.getTime();
       const days = Math.floor(diffTime / (1000 * 60 * 60 * 24) -1);
 
-      document.getElementById('counter').textContent = `Já se passaram ${days} dias de amor!`;
+      document.getElementById('counter').textContent = `Já se passaram ${days} dias juntinhos!`;
 
       const isDayNine = now.getDate() === 9;
       const monthsDiff = (now.getFullYear() - startDate.getUTCFullYear()) * 12 + (now.getMonth() - 10);
 
       if (isDayNine && monthsDiff >= 0) {
-        document.getElementById('message').textContent = `🎉 FELIZ ${monthsDiff} MESES DE AMOR! ❤️`;
+        document.getElementById('message').textContent = `🎉 FELIZ ${monthsDiff} MESES JUNTOS! ❤️`;
       } else {
         document.getElementById('message').textContent = '';
       }
